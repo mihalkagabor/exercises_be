@@ -1,6 +1,6 @@
 package org.mihalka.exercises_be.service;
 
-import org.mihalka.exercises_be.security.JwUtil;
+import org.mihalka.exercises_be.security.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     private final AuthenticationManager authenticationManager;
-    private final JwUtil jwtUtil;
+    private final JwtService jwtUtil;
 
-    public AuthService(AuthenticationManager authenticationManager, JwUtil jwtUtil) {
+    public AuthService(AuthenticationManager authenticationManager, JwtService jwtUtil) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
     }
@@ -21,8 +21,8 @@ public class AuthService {
         Authentication auth = new UsernamePasswordAuthenticationToken(identifier, password);
         Authentication authenticated = authenticationManager.authenticate(auth);
 
-        // Ha sikeres, generáljuk a JWT-t
-        return jwtUtil.generateToken(authenticated.getName());
+        // JWT generálás
+        return jwtUtil.generateToken(authenticated.getName()); // vagy authenticated.getPrincipal() ha email-t tárolsz benne
     }
 }
 

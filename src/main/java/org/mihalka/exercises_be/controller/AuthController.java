@@ -7,10 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -22,17 +19,6 @@ public class AuthController {
         this.authService = authService;
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest){
-//        try{
-//            Authentication authentication=authService.authenticate(loginRequest.getIdentifier(),loginRequest.getPassword());
-//
-//            return ResponseEntity.ok("Login succesfull for user: "+authentication.getName());
-//
-//        } catch (AuthenticationException e) {
-//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed: " + e.getMessage());
-//    }
-//    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
@@ -42,5 +28,9 @@ public class AuthController {
         } catch (AuthenticationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed: " + e.getMessage());
         }
+    }
+    @GetMapping("/profile")
+    public ResponseEntity<String> profile(Authentication authentication) {
+        return ResponseEntity.ok("Hello, " + authentication.getName());
     }
 }
