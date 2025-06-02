@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.mihalka.exercises_be.model.dto.AppUserCreationDto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name="app_user")
@@ -38,6 +39,9 @@ public class AppUserEntity {
 
 @OneToOne(mappedBy = "appUser")
     private UserDataEntity userData;
+
+@OneToMany(mappedBy = "user")
+private List<RefreshTokenEntity> refreshTokens;
 
     //AppUser entity létrehozásához szükségeses construktor
     public AppUserEntity (AppUserCreationDto dto){
