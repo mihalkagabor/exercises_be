@@ -13,9 +13,14 @@ spring:
   application:
     name: exercises_be
 
-
 flyway:
   enabled: true
   url: jdbc:mysql://localhost:3306/workout_db
   user: root
   password: test1234
+
+app:
+  jwt:
+    secret: my-secret-key
+    expirationMs: 360000
+    refreshExpirationMs: 86400000
