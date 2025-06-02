@@ -32,8 +32,8 @@ public String getPassword() {
 
     @Override
 public String getUsername() {
-        return user.getEmail() != null ? user.getEmail() : user.getName();
-    }
+        return user.getName() !=null? user.getName() : user.getEmail() ;    }
+
     @Override
     public boolean isAccountNonExpired() { return true; }
 
