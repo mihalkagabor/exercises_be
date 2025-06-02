@@ -1,0 +1,17 @@
+SPRINT_NUMBER=$1
+TICKET_NUMBER=$2
+DATE_TIME=$(date '+%Y_%m_%d_%H_%M_%S')
+
+BASE_MIGRATION_FOLDER="./src/main/resources/db/migration"
+if [ "$SPRINT_NUMBER" != "" ] && [ "$TICKET_NUMBER" != "" ]; then
+
+  MIGRATION_SCRIPT_IDENTIFIER="V$SPRINT_NUMBER"_$(echo $DATE_TIME)__EXC-$2
+  NEW_SCRIPT_FOLDER=$BASE_MIGRATION_FOLDER/S${SPRINT_NUMBER}
+
+  mkdir -p $NEW_SCRIPT_FOLDER
+  touch $NEW_SCRIPT_FOLDER/$MIGRATION_SCRIPT_IDENTIFIER.sql
+  echo "Created: $NEW_SCRIPT_FOLDER/$MIGRATION_SCRIPT_IDENTIFIER.sql"
+
+else
+  echo "Missing parameters!"
+fi
