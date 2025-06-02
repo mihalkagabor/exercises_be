@@ -1,5 +1,6 @@
 package org.mihalka.exercises_be.controller;
 
+import org.mihalka.exercises_be.model.dto.JwtResponse;
 import org.mihalka.exercises_be.model.dto.LoginRequest;
 import org.mihalka.exercises_be.service.AuthService;
 import org.springframework.http.HttpStatus;
@@ -21,15 +22,25 @@ public class AuthController {
         this.authService = authService;
     }
 
+//    @PostMapping("/login")
+//    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest){
+//        try{
+//            Authentication authentication=authService.authenticate(loginRequest.getIdentifier(),loginRequest.getPassword());
+//
+//            return ResponseEntity.ok("Login succesfull for user: "+authentication.getName());
+//
+//        } catch (AuthenticationException e) {
+//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed: " + e.getMessage());
+//    }
+//    }
+
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest){
-        try{
-            Authentication authentication=authService.authenticate(loginRequest.getIdentifier(),loginRequest.getPassword());
-
-            return ResponseEntity.ok("Login succesfull for user: "+authentication.getName());
-
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
+        try {
+            String jwtToken = authService.authenticate(loginRequest.getIdentifier(), loginRequest.getPassword());
+            return ResponseEntity.ok(new JwtResponse(jwtToken)); // <-- itt adjuk vissza a JWT-t
         } catch (AuthenticationException e) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed: " + e.getMessage());
-    }
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed: " + e.getMessage());
+        }
     }
 }
