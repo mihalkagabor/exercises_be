@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.mihalka.exercises_be.model.entity.UserDataEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -13,8 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class BodyWeightCreationDto {
 
-@NotNull (message = "Muszáj megadni testsúlyt")
+    @NotNull (message = "Muszáj megadni testsúlyt")
     private BigDecimal weight;
-
 
 }

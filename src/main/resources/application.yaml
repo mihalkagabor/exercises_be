@@ -22,5 +22,5 @@ flyway:
 app:
   jwt:
     secret: my-secret-key
-    expirationMs: 360000
+    expirationMs: 3600000
     refreshExpirationMs: 86400000

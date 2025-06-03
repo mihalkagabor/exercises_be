@@ -20,7 +20,7 @@ public class UserDataController {
     private final UserDataService userDataService;
 
     @PostMapping("/create_UserData")
-    public ResponseEntity<Void> creatUserData(@Valid @RequestBody WrapperUserData wrapperUserData){
+    public ResponseEntity<Void> createUserData(@Valid @RequestBody WrapperUserData wrapperUserData){
         userDataService.createATotalUserData(wrapperUserData.getUserDataCreationDto(),wrapperUserData.getBodyWeightCreationDto());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

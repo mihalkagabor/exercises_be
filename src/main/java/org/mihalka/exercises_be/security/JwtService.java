@@ -23,16 +23,30 @@ public class JwtService {
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
-    //Token generálása
+//    //Token generálása
+//    public String generateToken(String username){
+//        Date now= new Date();
+//        Date expiryDate=new Date(now.getTime()+expiration);
+//
+//        return Jwts.builder()
+//                .setSubject(username) //a subject mezőbe menthetjük el a felhasználó nevet, vagy email címet.
+//                .setIssuedAt(now) //mikor készült a token
+//                .setExpiration(expiryDate) //token lejárati ideje
+//                . signWith(getSigningKey(), SignatureAlgorithm.HS256) //aláírjuk a kulccsal
+//                .compact();
+//    }
+
     public String generateToken(String username){
-        Date now= new Date();
-        Date expiryDate=new Date(now.getTime()+expiration);
+        Date now = new Date();
+        System.out.println("Current time: " + now);
+        Date expiryDate = new Date(now.getTime() + expiration);
+        System.out.println("Expiry time: " + expiryDate);
 
         return Jwts.builder()
-                .setSubject(username) //a subject mezőbe menthetjük el a felhasználó nevet, vagy email címet.
-                .setIssuedAt(now) //mikor készült a token
-                .setExpiration(expiryDate) //token lejárati ideje
-                . signWith(getSigningKey(), SignatureAlgorithm.HS256) //aláírjuk a kulccsal
+                .setSubject(username)
+                .setIssuedAt(now)
+                .setExpiration(expiryDate)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -49,6 +63,10 @@ public class JwtService {
 //Token érvényességének ellenőrzése
     public boolean validateToken(String token) {
         try {
+            System.out.println("getExpiration(): " + getClaims(token).getExpiration());
+            System.out.println("Instant.now(): " + java.time.Instant.now());
+            System.out.println("Token expired? " + isTokenExpired(token));
+
             Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
@@ -62,9 +80,14 @@ public class JwtService {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
+//    private boolean isTokenExpired(String token) {
+//        return getClaims(token).getExpiration().before(new Date());
+//    }
+
     private boolean isTokenExpired(String token) {
-        return getClaims(token).getExpiration().before(new Date());
+        return getClaims(token).getExpiration().toInstant().isBefore(java.time.Instant.now());
     }
+
     private Claims getClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
