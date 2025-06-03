@@ -35,8 +35,6 @@ public class UserDataCreationDto {
     @NotNull()
     private UserRole user_role;
 
-    @NotNull(message = "You must provide the AppUser id")
-    private Long user_id;
 
     private BodyWeightEntity bodyWeight;
 

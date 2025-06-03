@@ -53,7 +53,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()  // pl. login engedélyezett
                         .requestMatchers("/api/create_appUser").permitAll()
-                        .requestMatchers("/api/create_UserData").permitAll()
+//                        .requestMatchers("/api/create_UserData").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

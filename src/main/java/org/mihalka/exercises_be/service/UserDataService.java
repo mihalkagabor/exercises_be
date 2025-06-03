@@ -9,6 +9,9 @@ import org.mihalka.exercises_be.repository.AppUserRepository;
 import org.mihalka.exercises_be.repository.BodyWeightRepository;
 import org.mihalka.exercises_be.repository.UserDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,9 +29,16 @@ public class UserDataService {
     }
 
 public void createATotalUserData(UserDataCreationDto dto, BodyWeightCreationDto bodyWeightCreationDto){
-    AppUserEntity appUser=appUserRepository.findById(dto.getUser_id())
-            .orElseThrow(()-> new RuntimeException("User not found"));
 
+    Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+    String username=authentication.getName();
+
+    AppUserEntity appUser = appUserRepository.findByEmail(username)
+            .or(() -> appUserRepository.findByName(username))
+            .orElseThrow(() -> {
+                System.out.println("User not found with identifier: " + username);
+                return new UsernameNotFoundException("User not found with identifier: " + username);
+            });
 
     UserDataEntity userData=new UserDataEntity(dto,appUser);
     userData=userDataRepository.save(userData);
