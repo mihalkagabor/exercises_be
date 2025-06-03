@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.mihalka.exercises_be.model.dto.BodyPartCreationDto;
 
 @Entity
 @Table(name="body_part")
@@ -17,11 +18,13 @@ public class BodyPartEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long body_part_id;
 
-    @NotBlank(message = "You must provide a bodypart naem")
+    @NotBlank(message = "You must provide a bodypart name")
     @Column(name = "body_part_name")
     private String budy_part_name;
 
-
+public BodyPartEntity(BodyPartCreationDto dto){
+    this.budy_part_name=dto.getBody_part_name();
+}
 
 
 
