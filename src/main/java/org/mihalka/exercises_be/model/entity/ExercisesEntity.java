@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.mihalka.exercises_be.model.dto.ExercisesCreationDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,4 +44,8 @@ public class ExercisesEntity {
     private List<WorkoutEntity> workoutList=new ArrayList<>();
 
 
+public ExercisesEntity(ExercisesCreationDto exercisesCreationDto){
+    this.exercise_name=exercisesCreationDto.getExercise_name();
+    this.is_free_weight=exercisesCreationDto.getIs_free_weight();
+}
 }
