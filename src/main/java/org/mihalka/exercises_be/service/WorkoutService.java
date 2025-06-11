@@ -13,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+
 @Service
 public class WorkoutService {
 private final WorkoutRepository workoutRepository;
@@ -46,7 +48,6 @@ private final AppUserRepository appUserRepository;
 
         WorkoutEntity workoutEntity=new WorkoutEntity();
         workoutEntity.setExercise_amount(workoutCreationDto.getExercise_amount());
-        workoutEntity.setWorkout_duration(workoutCreationDto.getWorkout_duration());
         workoutEntity.setStart_date(workoutCreationDto.getStart_date());
         workoutEntity.setEnd_date(workoutCreationDto.getEnd_date());
         workoutEntity.setExercise_weight(workoutCreationDto.getExercise_weight());

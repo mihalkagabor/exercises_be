@@ -17,9 +17,6 @@ public class WorkoutCreationDto {
     private Integer exercise_amount;
 
     @NotNull()
-    private Integer workout_duration;
-
-    @NotNull()
     private LocalDateTime start_date;
 
     @NotNull()
@@ -31,7 +28,7 @@ public class WorkoutCreationDto {
     @NotNull
     private Long exercises_id;
 
-    @NotNull
+
     private Long userData_id;
 
 

@@ -31,8 +31,7 @@ public class WorkoutEntity {
     private LocalDateTime end_date;
 
 
-    @NotNull()
-    @Column(name = "workout_duration")
+    @Column(insertable = false, updatable = false)
     private Integer workout_duration;
 
     @NotNull()
