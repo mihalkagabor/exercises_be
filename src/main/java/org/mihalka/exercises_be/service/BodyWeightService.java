@@ -1,5 +1,6 @@
 package org.mihalka.exercises_be.service;
 
+import jakarta.transaction.Transactional;
 import org.mihalka.exercises_be.model.dto.BodyWeightCreationDto;
 import org.mihalka.exercises_be.model.dto.WrapperUserData;
 import org.mihalka.exercises_be.model.entity.AppUserEntity;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class BodyWeightService {
 
     private BodyWeightRepository bodyWeightRepository;

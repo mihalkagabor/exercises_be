@@ -1,5 +1,6 @@
 package org.mihalka.exercises_be.service;
 
+import jakarta.transaction.Transactional;
 import org.mihalka.exercises_be.model.dto.BodyWeightCreationDto;
 import org.mihalka.exercises_be.model.dto.UserDataCreationDto;
 import org.mihalka.exercises_be.model.entity.AppUserEntity;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class UserDataService {
 
     private final UserDataRepository userDataRepository;

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.mihalka.exercises_be.model.dto.AccessoryCreationDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,5 +29,9 @@ public class AccessoryEntity {
 
     @OneToMany(mappedBy = "accessory")
     private List<ExercisesEntity> exercisesList =new ArrayList<>();
+
+    public AccessoryEntity(AccessoryCreationDto dto){
+        this.accessory_name=dto.getAccessory_name();
+    }
 
 }
