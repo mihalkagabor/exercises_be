@@ -48,7 +48,7 @@ public class BodyWeightService {
                     return new UsernameNotFoundException("User not found with identifier: " + username);
                 });
 
-                    UserDataEntity userData = userDataRepository.findById(appUser.getUser_id())
+                    UserDataEntity userData = userDataRepository.findByAppUser(appUser)
                             .orElseThrow(() -> new RuntimeException("User not found"));
 
                     BodyWeightEntity bodyWeight = new BodyWeightEntity(dto);
