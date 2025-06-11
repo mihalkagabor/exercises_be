@@ -38,18 +38,8 @@ private final WorkoutRepository workoutRepository;
         this.bodyWeightRepository = bodyWeightRepository;
         this.workoutRepository = workoutRepository;
     }
-//TODO Végpontot csinálni
 public void createATotalUserData(UserDataCreationDto dto, BodyWeightCreationDto bodyWeightCreationDto){
-
-    Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
-    String username=authentication.getName();
-
-    AppUserEntity appUser = appUserRepository.findByEmail(username)
-            .or(() -> appUserRepository.findByName(username))
-            .orElseThrow(() -> {
-                System.out.println("User not found with identifier: " + username);
-                return new UsernameNotFoundException("User not found with identifier: " + username);
-            });
+        AppUserEntity appUser = getCurrentAppUser();
 
     UserDataEntity userData=new UserDataEntity(dto,appUser);
     userData=userDataRepository.save(userData);
@@ -66,45 +56,44 @@ public List<UserDataListerDto> listUserData(){
 }
 //TODO Végpontot csinálni
 public List<UserDataWeightListerDto> listUserDataWeight(){
-    Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
-    String username=authentication.getName();
-
-    AppUserEntity appUser = appUserRepository.findByEmail(username)
-            .or(() -> appUserRepository.findByName(username))
-            .orElseThrow(() -> {
-                System.out.println("User not found with identifier: " + username);
-                return new UsernameNotFoundException("User not found with identifier: " + username);
-            });
-
-    UserDataEntity userData=userDataRepository.findByAppUser(appUser)
-            .orElseThrow(()-> new RuntimeException("User not found"));
+    UserDataEntity userData=getCurrentUserData();
 
     return bodyWeightRepository.findAllByUserData(userData).stream()
             .sorted(Comparator.comparing(BodyWeightEntity::getMeasure_date))
             .map(UserDataWeightListerDto::new)
             .collect(Collectors.toList());
-
 }
+//TODO Végpontot csinálni
 
 public List<UserDataWorkoutListerDto> listUserDataWorkout(){
-        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
-        String username=authentication.getName();
-
-    AppUserEntity appUser = appUserRepository.findByEmail(username)
-            .or(() -> appUserRepository.findByName(username))
-            .orElseThrow(() -> {
-                System.out.println("User not found with identifier: " + username);
-                return new UsernameNotFoundException("User not found with identifier: " + username);
-            });
-
-    UserDataEntity userData=userDataRepository.findByAppUser(appUser)
-            .orElseThrow(()->new RuntimeException("Cant find this user"));
+    UserDataEntity userData=getCurrentUserData();
 
    return workoutRepository.findAllByUserData(userData).stream()
            .sorted(Comparator.comparing(WorkoutEntity::getStart_date).reversed())
            .map(UserDataWorkoutListerDto::new)
            .collect(Collectors.toList());
 
+    }
+
+    public AppUserEntity getCurrentAppUser(){
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        String username=authentication.getName();
+
+        AppUserEntity appUser = appUserRepository.findByEmail(username)
+                .or(() -> appUserRepository.findByName(username))
+                .orElseThrow(() -> {
+                    System.out.println("User not found with identifier: " + username);
+                    return new UsernameNotFoundException("User not found with identifier: " + username);
+                });
+        return appUser;
+    }
+
+    public UserDataEntity getCurrentUserData(){
+        AppUserEntity appUser = getCurrentAppUser();
+
+        UserDataEntity userData=userDataRepository.findByAppUser(appUser)
+                .orElseThrow(()->new RuntimeException("Cant find this user"));
+        return userData;
     }
 
 }

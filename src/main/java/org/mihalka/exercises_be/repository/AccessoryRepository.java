@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccessoryRepository extends JpaRepository <AccessoryEntity, Long>{
 
-    public AccessoryEntity findByAccessory_id(Long id);
 }
