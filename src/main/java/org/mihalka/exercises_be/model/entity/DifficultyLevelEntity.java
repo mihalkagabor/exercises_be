@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.mihalka.exercises_be.model.dto.DifficultyLevelCreationDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,4 +34,8 @@ public class DifficultyLevelEntity {
     @OneToMany(mappedBy = "difficultyLevel")
     private List<ExercisesEntity> exercisesList =new ArrayList<>();
 
+    public DifficultyLevelEntity(DifficultyLevelCreationDto difficultyLevelCreationDto){
+        this.difficulty_level_description=difficultyLevelCreationDto.getDifficulty_level_description();
+        this.difficulty_level_level=difficultyLevelCreationDto.getDifficulty_level_level();
+    }
 }
