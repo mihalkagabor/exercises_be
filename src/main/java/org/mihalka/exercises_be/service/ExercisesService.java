@@ -2,13 +2,11 @@ package org.mihalka.exercises_be.service;
 
 import jakarta.transaction.Transactional;
 import org.mihalka.exercises_be.model.dto.ExercisesCreationDto;
-import org.mihalka.exercises_be.model.entity.AccessoryEntity;
 import org.mihalka.exercises_be.model.entity.ExercisesEntity;
 import org.mihalka.exercises_be.repository.AccessoryRepository;
 import org.mihalka.exercises_be.repository.DifficultyLevelRepository;
 import org.mihalka.exercises_be.repository.ExercisesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,7 +23,7 @@ public class ExercisesService {
         this.difficultyLevelRepository = difficultyLevelRepository;
     }
 
-    public ExercisesEntity createExercises(ExercisesCreationDto exercisesCreationDto){
+    public void createExercises(ExercisesCreationDto exercisesCreationDto){
         ExercisesEntity exercisesEntity=new ExercisesEntity(exercisesCreationDto);
         exercisesEntity.setAccessory(
                 accessoryRepository.findById(exercisesCreationDto.getAccessory_id())
@@ -36,6 +34,6 @@ public class ExercisesService {
                        .orElseThrow(()-> new RuntimeException("Difficulty not found")
        ));
 
-        return exercisesRepository.save(exercisesEntity);
+         exercisesRepository.save(exercisesEntity);
     }
 }

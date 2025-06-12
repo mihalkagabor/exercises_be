@@ -24,28 +24,23 @@ private final UserDataRepository userDataRepository;
 
     public String getCurrentAppUserIdentifier (){
         Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
-         String currentUser=authentication.getName();
-        return currentUser;
+
+        return authentication.getName();
     }
 
 
     public AppUserEntity getCurrentAppUser(){
-
         String currentUser=getCurrentAppUserIdentifier();
-        AppUserEntity appUser=appUserRepository.findByEmail(currentUser)
+        return  appUserRepository.findByEmail(currentUser)
                 .or(()-> appUserRepository.findByName(currentUser))
-                .orElseThrow(()-> {
-                    return new UsernameNotFoundException("User not found with this identifier : " + currentUser);
-                });
-        return appUser;
-    };
+                .orElseThrow(()-> new UsernameNotFoundException("User not found with this identifier : " + currentUser));
+    }
 
     public UserDataEntity getCurrentUserData(){
         String currentUser=getCurrentAppUserIdentifier();
         AppUserEntity appUser =getCurrentAppUser();
-        UserDataEntity userData =userDataRepository.findByAppUser(appUser)
+        return  userDataRepository.findByAppUser(appUser)
                 .orElseThrow(()-> new UsernameNotFoundException("User not found with this identifier:" +currentUser));
-        return userData;
     }
 
 }

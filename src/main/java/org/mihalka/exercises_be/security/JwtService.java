@@ -23,18 +23,6 @@ public class JwtService {
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
-//    //Token generálása
-//    public String generateToken(String username){
-//        Date now= new Date();
-//        Date expiryDate=new Date(now.getTime()+expiration);
-//
-//        return Jwts.builder()
-//                .setSubject(username) //a subject mezőbe menthetjük el a felhasználó nevet, vagy email címet.
-//                .setIssuedAt(now) //mikor készült a token
-//                .setExpiration(expiryDate) //token lejárati ideje
-//                . signWith(getSigningKey(), SignatureAlgorithm.HS256) //aláírjuk a kulccsal
-//                .compact();
-//    }
 
     public String generateToken(String username){
         Date now = new Date();
@@ -79,10 +67,6 @@ public class JwtService {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
-
-//    private boolean isTokenExpired(String token) {
-//        return getClaims(token).getExpiration().before(new Date());
-//    }
 
     private boolean isTokenExpired(String token) {
         return getClaims(token).getExpiration().toInstant().isBefore(java.time.Instant.now());

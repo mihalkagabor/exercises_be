@@ -30,7 +30,7 @@ public class AppUserService {
 
 
     // app user létrehozó metódus
-    public AppUserEntity appUserCreation(AppUserCreationDto dto){
+    public void appUserCreation(AppUserCreationDto dto){
         List<String> errors =new ArrayList<>();
         List<String> passwordErrors = validator.PasswordValidate(dto.getPassword_hash());
         if(!passwordErrors.isEmpty()){
@@ -47,7 +47,7 @@ public class AppUserService {
             }
         //ez az egyeszerű appUser létrehozása, amit bekapunk a paraméterben Dto-t feltöltjük ide.
         AppUserEntity appUser = new AppUserEntity(dto);
-        return appUserRepository.save(appUser);
+        appUserRepository.save(appUser);
     }
 
     public List<AppUserListerDto> listAppUsers(){

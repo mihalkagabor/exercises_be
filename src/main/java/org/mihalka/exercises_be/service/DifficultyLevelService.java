@@ -18,9 +18,9 @@ public class DifficultyLevelService {
         this.difficultyLevelRepository = difficultyLevelRepository;
     }
 
-    public DifficultyLevelEntity createDifficultyLevel(DifficultyLevelCreationDto difficultyLevelCreationDto){
+    public void createDifficultyLevel(DifficultyLevelCreationDto difficultyLevelCreationDto){
     DifficultyLevelEntity difficultyLevel=new DifficultyLevelEntity(difficultyLevelCreationDto);
-    return difficultyLevelRepository.save(difficultyLevel);
+     difficultyLevelRepository.save(difficultyLevel);
     }
 
 }

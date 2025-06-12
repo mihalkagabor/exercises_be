@@ -16,9 +16,9 @@ public class BodyPartService {
         this.bodyPartRepository = bodyPartRepository;
     }
 
-    public BodyPartEntity createBodyPart(BodyPartCreationDto bodyPartCreationDto){
+    public void createBodyPart(BodyPartCreationDto bodyPartCreationDto){
         BodyPartEntity bodyPartEntity= new BodyPartEntity(bodyPartCreationDto);
-        return bodyPartRepository.save(bodyPartEntity);
+        bodyPartRepository.save(bodyPartEntity);
     }
 
 

@@ -18,9 +18,9 @@ public class AccessoryService {
         this.accessoryRepository = accessoryRepository;
     }
 
-    public AccessoryEntity createAccessorry (AccessoryCreationDto accessoryCreationDto){
+    public void createAccessory(AccessoryCreationDto accessoryCreationDto){
     AccessoryEntity accessory=new AccessoryEntity(accessoryCreationDto);
-    return accessoryRepository.save(accessory);
+    accessoryRepository.save(accessory);
 
     }
 }

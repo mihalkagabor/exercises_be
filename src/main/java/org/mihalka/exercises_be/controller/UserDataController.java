@@ -2,8 +2,6 @@ package org.mihalka.exercises_be.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.mihalka.exercises_be.model.dto.BodyWeightCreationDto;
-import org.mihalka.exercises_be.model.dto.UserDataCreationDto;
 import org.mihalka.exercises_be.model.dto.WrapperUserData;
 import org.mihalka.exercises_be.service.UserDataService;
 import org.springframework.http.HttpStatus;

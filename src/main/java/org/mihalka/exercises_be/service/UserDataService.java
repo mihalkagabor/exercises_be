@@ -6,14 +6,10 @@ import org.mihalka.exercises_be.model.entity.AppUserEntity;
 import org.mihalka.exercises_be.model.entity.BodyWeightEntity;
 import org.mihalka.exercises_be.model.entity.UserDataEntity;
 import org.mihalka.exercises_be.model.entity.WorkoutEntity;
-import org.mihalka.exercises_be.repository.AppUserRepository;
 import org.mihalka.exercises_be.repository.BodyWeightRepository;
 import org.mihalka.exercises_be.repository.UserDataRepository;
 import org.mihalka.exercises_be.repository.WorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -26,16 +22,14 @@ public class UserDataService {
 
     private final UserDataRepository userDataRepository;
     private final BodyWeightService bodyWeightService;
-    private final AppUserRepository appUserRepository;
     private final BodyWeightRepository bodyWeightRepository;
     private final WorkoutRepository workoutRepository;
     private final  CurrentUserService currentUserService;
 
     @Autowired
-    public UserDataService(UserDataRepository userDataRepository, BodyWeightService bodyWeightService, AppUserRepository appUserRepository, BodyWeightRepository bodyWeightRepository, WorkoutRepository workoutRepository, CurrentUserService currentUserService){
+    public UserDataService(UserDataRepository userDataRepository, BodyWeightService bodyWeightService, BodyWeightRepository bodyWeightRepository, WorkoutRepository workoutRepository, CurrentUserService currentUserService){
         this.userDataRepository=userDataRepository;
         this.bodyWeightService=bodyWeightService;
-        this.appUserRepository = appUserRepository;
         this.bodyWeightRepository = bodyWeightRepository;
         this.workoutRepository = workoutRepository;
         this.currentUserService = currentUserService;

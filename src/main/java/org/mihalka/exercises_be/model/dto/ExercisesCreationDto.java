@@ -5,9 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.mihalka.exercises_be.model.entity.AccessoryEntity;
-import org.mihalka.exercises_be.model.entity.DifficultyLevelEntity;
-
 @Getter
 @Setter
 @Data

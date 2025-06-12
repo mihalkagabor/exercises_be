@@ -22,7 +22,7 @@ public class AccessoryController {
     @PostMapping("/create_Accessory")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> createAccessory(@RequestBody @Valid AccessoryCreationDto accessoryCreationDto){
-        accessoryService.createAccessorry(accessoryCreationDto);
+        accessoryService.createAccessory(accessoryCreationDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

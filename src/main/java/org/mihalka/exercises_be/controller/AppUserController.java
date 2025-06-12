@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.mihalka.exercises_be.model.dto.AppUserCreationDto;
 import org.mihalka.exercises_be.model.dto.AppUserListerDto;
-import org.mihalka.exercises_be.repository.AppUserRepository;
 import org.mihalka.exercises_be.service.AppUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

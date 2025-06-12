@@ -1,10 +1,8 @@
 package org.mihalka.exercises_be.model.dto;
 
 import lombok.Data;
-import org.mihalka.exercises_be.model.entity.AppUserEntity;
 import org.mihalka.exercises_be.model.entity.UserDataEntity;
-import org.mihalka.exercises_be.model.enums.Sex;
-import org.mihalka.exercises_be.model.enums.UserRole;
+
 
 @Data
 public class UserDataListerDto {

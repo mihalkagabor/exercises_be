@@ -1,7 +1,6 @@
 package org.mihalka.exercises_be.model.dto;
 
 import lombok.Data;
-import org.mihalka.exercises_be.model.entity.ExercisesEntity;
 import org.mihalka.exercises_be.model.entity.WorkoutEntity;
 
 import java.math.BigDecimal;
@@ -25,7 +24,7 @@ public class UserDataWorkoutListerDto {
         this.workout_duration=workoutEntity.getWorkout_duration();
         this.exercise_amount=workoutEntity.getExercise_amount();
         this.exercise_weight=workoutEntity.getExercise_weight();
-        this.exercises=workoutEntity.getExercises().getExercise_name().toString();
+        this.exercises=workoutEntity.getExercises().getExercise_name();
     }
 
 

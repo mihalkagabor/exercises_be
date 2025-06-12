@@ -1,6 +1,5 @@
 package org.mihalka.exercises_be.model.dto;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.mihalka.exercises_be.model.entity.AppUserEntity;
 

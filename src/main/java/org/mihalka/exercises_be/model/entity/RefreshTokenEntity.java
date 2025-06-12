@@ -2,6 +2,7 @@ package org.mihalka.exercises_be.model.entity;
 
 import jakarta.persistence.*;
 
+
 import java.time.Instant;
 
 @Entity
