@@ -43,6 +43,10 @@ public class ExercisesEntity {
 @OneToMany (mappedBy = "exercises")
     private List<WorkoutEntity> workoutList=new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "body_part_id")
+    private BodyPartEntity bodyPart;
+
 
 public ExercisesEntity(ExercisesCreationDto exercisesCreationDto){
     this.exercise_name=exercisesCreationDto.getExercise_name();

@@ -2,6 +2,7 @@ package org.mihalka.exercises_be.service;
 
 import jakarta.transaction.Transactional;
 import org.mihalka.exercises_be.model.dto.BodyWeightCreationDto;
+import org.mihalka.exercises_be.model.dto.UserDataWeightListerDto;
 import org.mihalka.exercises_be.model.entity.BodyWeightEntity;
 import org.mihalka.exercises_be.model.entity.UserDataEntity;
 import org.mihalka.exercises_be.repository.BodyWeightRepository;
@@ -9,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -37,4 +41,13 @@ public class BodyWeightService {
 
                 }
 
+    //TODO Végpontot csinálni
+    public List<UserDataWeightListerDto> listUserDataWeight(){
+        UserDataEntity userData=currentUserService.getCurrentUserData();
+
+        return bodyWeightRepository.findAllByUserData(userData).stream()
+                .sorted(Comparator.comparing(BodyWeightEntity::getMeasure_date).reversed())
+                .map(UserDataWeightListerDto::new)
+                .collect(Collectors.toList());
+    }
     }

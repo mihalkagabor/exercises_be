@@ -1,11 +1,17 @@
 package org.mihalka.exercises_be.service;
 
+import org.mihalka.exercises_be.model.dto.UserDataWorkoutListerDto;
 import org.mihalka.exercises_be.model.dto.WorkoutCreationDto;
+import org.mihalka.exercises_be.model.dto.WorkoutFilterDto;
 import org.mihalka.exercises_be.model.entity.UserDataEntity;
 import org.mihalka.exercises_be.model.entity.WorkoutEntity;
 import org.mihalka.exercises_be.repository.ExercisesRepository;
 import org.mihalka.exercises_be.repository.WorkoutRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -35,5 +41,32 @@ private final CurrentUserService currentUserService;
         workoutEntity.setUserData(userData);
          workoutRepository.save(workoutEntity);
     }
+//TODO Végpontot csinálni
 
+    public List<UserDataWorkoutListerDto> listUserWorkout(){
+        UserDataEntity userData=currentUserService.getCurrentUserData();
+
+        return workoutRepository.findAllByUserData(userData).stream()
+                .sorted(Comparator.comparing(WorkoutEntity::getStart_date).reversed())
+                .map(UserDataWorkoutListerDto::new)
+                .collect(Collectors.toList());
+
+    }
+
+
+    public List<UserDataWorkoutListerDto> listUserExerciseWorkout(WorkoutFilterDto workoutFilterDto){
+        UserDataEntity userData=currentUserService.getCurrentUserData();
+
+        return workoutRepository.findAllByUserData(userData).stream()
+                .filter(workout -> workoutFilterDto.getExerciseId() == null
+                        || workout.getExercises().getExercises_id().equals(workoutFilterDto.getExerciseId()))
+                .filter(workout -> workoutFilterDto.getBodyPartId() == null
+                        || (workout.getExercises().getBodyPart() != null
+                        && workout.getExercises().getBodyPart().getBody_part_id().equals(workoutFilterDto.getBodyPartId())))
+
+                .sorted(Comparator.comparing(WorkoutEntity::getStart_date).reversed())
+                .map(UserDataWorkoutListerDto::new)
+                .collect(Collectors.toList());
+
+    }
 }

@@ -50,26 +50,9 @@ public List<UserDataListerDto> listUserData(){
                 .map(UserDataListerDto::new)
                 .collect(Collectors.toList());
 }
-//TODO Végpontot csinálni
-public List<UserDataWeightListerDto> listUserDataWeight(){
-    UserDataEntity userData=currentUserService.getCurrentUserData();
 
-    return bodyWeightRepository.findAllByUserData(userData).stream()
-            .sorted(Comparator.comparing(BodyWeightEntity::getMeasure_date).reversed())
-            .map(UserDataWeightListerDto::new)
-            .collect(Collectors.toList());
-}
-//TODO Végpontot csinálni
 
-public List<UserDataWorkoutListerDto> listUserDataWorkout(){
-    UserDataEntity userData=currentUserService.getCurrentUserData();
 
-   return workoutRepository.findAllByUserData(userData).stream()
-           .sorted(Comparator.comparing(WorkoutEntity::getStart_date).reversed())
-           .map(UserDataWorkoutListerDto::new)
-           .collect(Collectors.toList());
-
-    }
 
 
 }
