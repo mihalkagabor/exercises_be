@@ -28,18 +28,20 @@ public class UserDataService {
     private final BodyWeightService bodyWeightService;
     private final AppUserRepository appUserRepository;
     private final BodyWeightRepository bodyWeightRepository;
-private final WorkoutRepository workoutRepository;
+    private final WorkoutRepository workoutRepository;
+    private final  CurrentUserService currentUserService;
 
     @Autowired
-    public UserDataService(UserDataRepository userDataRepository, BodyWeightService bodyWeightService, AppUserRepository appUserRepository, BodyWeightRepository bodyWeightRepository, WorkoutRepository workoutRepository){
+    public UserDataService(UserDataRepository userDataRepository, BodyWeightService bodyWeightService, AppUserRepository appUserRepository, BodyWeightRepository bodyWeightRepository, WorkoutRepository workoutRepository, CurrentUserService currentUserService){
         this.userDataRepository=userDataRepository;
         this.bodyWeightService=bodyWeightService;
         this.appUserRepository = appUserRepository;
         this.bodyWeightRepository = bodyWeightRepository;
         this.workoutRepository = workoutRepository;
+        this.currentUserService = currentUserService;
     }
 public void createATotalUserData(UserDataCreationDto dto, BodyWeightCreationDto bodyWeightCreationDto){
-        AppUserEntity appUser = getCurrentAppUser();
+        AppUserEntity appUser = currentUserService.getCurrentAppUser();
 
     UserDataEntity userData=new UserDataEntity(dto,appUser);
     userData=userDataRepository.save(userData);
@@ -56,7 +58,7 @@ public List<UserDataListerDto> listUserData(){
 }
 //TODO Végpontot csinálni
 public List<UserDataWeightListerDto> listUserDataWeight(){
-    UserDataEntity userData=getCurrentUserData();
+    UserDataEntity userData=currentUserService.getCurrentUserData();
 
     return bodyWeightRepository.findAllByUserData(userData).stream()
             .sorted(Comparator.comparing(BodyWeightEntity::getMeasure_date).reversed())
@@ -66,7 +68,7 @@ public List<UserDataWeightListerDto> listUserDataWeight(){
 //TODO Végpontot csinálni
 
 public List<UserDataWorkoutListerDto> listUserDataWorkout(){
-    UserDataEntity userData=getCurrentUserData();
+    UserDataEntity userData=currentUserService.getCurrentUserData();
 
    return workoutRepository.findAllByUserData(userData).stream()
            .sorted(Comparator.comparing(WorkoutEntity::getStart_date).reversed())
@@ -75,25 +77,5 @@ public List<UserDataWorkoutListerDto> listUserDataWorkout(){
 
     }
 
-    public AppUserEntity getCurrentAppUser(){
-        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
-        String username=authentication.getName();
-
-        AppUserEntity appUser = appUserRepository.findByEmail(username)
-                .or(() -> appUserRepository.findByName(username))
-                .orElseThrow(() -> {
-                    System.out.println("User not found with identifier: " + username);
-                    return new UsernameNotFoundException("User not found with identifier: " + username);
-                });
-        return appUser;
-    }
-
-    public UserDataEntity getCurrentUserData(){
-        AppUserEntity appUser = getCurrentAppUser();
-
-        UserDataEntity userData=userDataRepository.findByAppUser(appUser)
-                .orElseThrow(()->new RuntimeException("Cant find this user"));
-        return userData;
-    }
 
 }

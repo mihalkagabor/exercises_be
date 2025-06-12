@@ -21,30 +21,21 @@ private final WorkoutRepository workoutRepository;
 private final ExercisesRepository exercisesRepository;
 private final UserDataRepository userDataRepository;
 private final AppUserRepository appUserRepository;
+private final CurrentUserService currentUserService;
 
-    public WorkoutService(WorkoutRepository workoutRepository, ExercisesRepository exercisesRepository, UserDataRepository userDataRepository, AppUserRepository appUserRepository) {
+    public WorkoutService(WorkoutRepository workoutRepository, ExercisesRepository exercisesRepository, UserDataRepository userDataRepository, AppUserRepository appUserRepository, CurrentUserService currentUserService) {
         this.workoutRepository = workoutRepository;
         this.exercisesRepository = exercisesRepository;
         this.userDataRepository = userDataRepository;
         this.appUserRepository = appUserRepository;
+        this.currentUserService = currentUserService;
     }
 
 
 
     public WorkoutEntity createWorkout(WorkoutCreationDto workoutCreationDto){
 
-        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
-        String username=authentication.getName();
-
-        AppUserEntity appUser = appUserRepository.findByEmail(username)
-                .or(() -> appUserRepository.findByName(username))
-                .orElseThrow(() -> {
-                    System.out.println("User not found with identifier: " + username);
-                    return new UsernameNotFoundException("User not found with identifier: " + username);
-                });
-
-        UserDataEntity userData = userDataRepository.findByAppUser(appUser)
-                .orElseThrow(() -> new RuntimeException("There is no UserData"));
+        UserDataEntity userData = currentUserService.getCurrentUserData();
 
         WorkoutEntity workoutEntity=new WorkoutEntity();
         workoutEntity.setExercise_amount(workoutCreationDto.getExercise_amount());

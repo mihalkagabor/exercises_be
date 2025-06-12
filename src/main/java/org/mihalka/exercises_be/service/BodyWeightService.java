@@ -25,12 +25,14 @@ public class BodyWeightService {
     private BodyWeightRepository bodyWeightRepository;
     private final UserDataRepository userDataRepository;
     private final AppUserRepository appUserRepository;
+    private final  CurrentUserService currentUserService;
 
     @Autowired
-    public BodyWeightService(BodyWeightRepository bodyWeightRepository, UserDataRepository userDataRepository, AppUserRepository appUserRepository){
+    public BodyWeightService(BodyWeightRepository bodyWeightRepository, UserDataRepository userDataRepository, AppUserRepository appUserRepository, CurrentUserService currentUserService){
         this.bodyWeightRepository=bodyWeightRepository;
         this.userDataRepository = userDataRepository;
         this.appUserRepository = appUserRepository;
+        this.currentUserService = currentUserService;
     }
     public BodyWeightEntity saveBodyWeightEntity(BodyWeightEntity bodyWeightEntity) {
         return bodyWeightRepository.save(bodyWeightEntity);
@@ -38,18 +40,7 @@ public class BodyWeightService {
     }
 
     public BodyWeightEntity createBodyWeight(BodyWeightCreationDto dto){
-        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
-        String username=authentication.getName();
-
-        AppUserEntity appUser = appUserRepository.findByEmail(username)
-                .or(() -> appUserRepository.findByName(username))
-                .orElseThrow(() -> {
-                    System.out.println("User not found with identifier: " + username);
-                    return new UsernameNotFoundException("User not found with identifier: " + username);
-                });
-
-                    UserDataEntity userData = userDataRepository.findByAppUser(appUser)
-                            .orElseThrow(() -> new RuntimeException("User not found"));
+                    UserDataEntity userData =currentUserService.getCurrentUserData();
 
                     BodyWeightEntity bodyWeight = new BodyWeightEntity(dto);
                     bodyWeight.setMeasure_date(LocalDateTime.now());
