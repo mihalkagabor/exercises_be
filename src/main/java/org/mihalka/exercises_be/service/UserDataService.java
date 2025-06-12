@@ -59,7 +59,7 @@ public List<UserDataWeightListerDto> listUserDataWeight(){
     UserDataEntity userData=getCurrentUserData();
 
     return bodyWeightRepository.findAllByUserData(userData).stream()
-            .sorted(Comparator.comparing(BodyWeightEntity::getMeasure_date))
+            .sorted(Comparator.comparing(BodyWeightEntity::getMeasure_date).reversed())
             .map(UserDataWeightListerDto::new)
             .collect(Collectors.toList());
 }
