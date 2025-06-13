@@ -6,6 +6,9 @@ import org.mihalka.exercises_be.model.entity.BodyPartEntity;
 import org.mihalka.exercises_be.repository.BodyPartRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.List;
+
 @Service
 @Transactional
 public class BodyPartService {
@@ -22,6 +25,11 @@ public class BodyPartService {
     }
 
 
-
-
+    public List<BodyPartCreationDto> bodyPartLister() {
+        return bodyPartRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparing(BodyPartEntity :: getBodyPartName))
+                .map(BodyPartCreationDto :: new)
+                .toList();
+    }
 }
