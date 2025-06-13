@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccessoryController {
     private final AccessoryService accessoryService;
 
-    //TODO: Végpont ellenőrzés még nem készült el, Tesztelni kell postmanben
     @PostMapping("/create_Accessory")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> createAccessory(@RequestBody @Valid AccessoryCreationDto accessoryCreationDto){
         accessoryService.createAccessory(accessoryCreationDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+
+
 }
