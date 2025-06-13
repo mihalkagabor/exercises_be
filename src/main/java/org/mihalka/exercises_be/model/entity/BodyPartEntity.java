@@ -16,14 +16,15 @@ public class BodyPartEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long body_part_id;
+    @Column(name="body_part_id")
+    private Long bodyPartId;
 
     @NotBlank(message = "You must provide a bodypart name")
     @Column(name = "body_part_name")
-    private String body_part_name;
+    private String bodyPartName;
 
 public BodyPartEntity(BodyPartCreationDto dto){
-    this.body_part_name =dto.getBody_part_name();
+    this.bodyPartName =dto.getBody_part_name();
 }
 
 

@@ -52,7 +52,7 @@ private final CurrentUserService currentUserService;
                         || workout.getExercises().getExercisesId().equals(workoutFilterDto.getExerciseId()))
                 .filter(workout -> workoutFilterDto.getBodyPartId() == null
                         || (workout.getExercises().getBodyPart() != null
-                        && workout.getExercises().getBodyPart().getBody_part_id().equals(workoutFilterDto.getBodyPartId())))
+                        && workout.getExercises().getBodyPart().getBodyPartId().equals(workoutFilterDto.getBodyPartId())))
                 .filter(workout-> workoutFilterDto.getWorkoutDay()==null
                         || workout.getStartDate().toLocalDate().equals(workoutFilterDto.getWorkoutDay()) )
                 .sorted(Comparator.comparing(WorkoutEntity::getStartDate).reversed())
