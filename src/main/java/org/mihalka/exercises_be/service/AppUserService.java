@@ -56,7 +56,7 @@ public class AppUserService {
         //.stream()-e elindítjuk a feldolgozást.
     return appUserRepository.findAll().stream()
             //sorba rendezi az entitásokból álló listát AppUser::getUser_id (user id alapján)
-            .sorted(Comparator.comparing(AppUserEntity::getUser_id))
+            .sorted(Comparator.comparing(AppUserEntity::getUserId))
             //.map(el feltöltöm az AppUserLIsterDto-t )
             .map(AppUserListerDto::new)
             //Listába gyűjtöd a stream-ben létrehozott dto-kat.

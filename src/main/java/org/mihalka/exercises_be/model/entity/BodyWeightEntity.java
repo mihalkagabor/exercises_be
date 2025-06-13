@@ -20,14 +20,14 @@ public class BodyWeightEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "body_weight_id")
-    private Long body_weight_id;
+    private Long bodyWeightId;
 
     @NotNull(message = "Provide your weight")
     @Column (name="weight",precision = 4,scale = 1)
     private BigDecimal weight;
 
     @Column(name="measure_date")
-    private LocalDateTime measure_date;
+    private LocalDateTime measureDate;
 
     @ManyToOne
     @JoinColumn(name = "user_data_id")
@@ -35,7 +35,7 @@ public class BodyWeightEntity {
 
     public BodyWeightEntity(BodyWeightCreationDto dto){
         this.weight=dto.getWeight();
-        this.measure_date=LocalDateTime.now();
+        this.measureDate =LocalDateTime.now();
     }
 
 }

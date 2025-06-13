@@ -18,13 +18,13 @@ public class UserDataWorkoutListerDto {
     private String exercises;
 
     public UserDataWorkoutListerDto(WorkoutEntity workoutEntity){
-        this.workout_id=workoutEntity.getWorkout_id();
-        this.start_date=workoutEntity.getStart_date();
-        this.end_date=workoutEntity.getEnd_date();
-        this.workout_duration=workoutEntity.getWorkout_duration();
-        this.exercise_amount=workoutEntity.getExercise_amount();
-        this.exercise_weight=workoutEntity.getExercise_weight();
-        this.exercises=workoutEntity.getExercises().getExercise_name();
+        this.workout_id=workoutEntity.getWorkoutId();
+        this.start_date=workoutEntity.getStartDate();
+        this.end_date=workoutEntity.getEndDate();
+        this.workout_duration=workoutEntity.getWorkoutDuration();
+        this.exercise_amount=workoutEntity.getExercisesAmount();
+        this.exercise_weight=workoutEntity.getExercisesWeight();
+        this.exercises=workoutEntity.getExercises().getExercisesName();
     }
 
 

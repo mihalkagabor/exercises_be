@@ -23,15 +23,15 @@ public class UserDataEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_data_id")
-    private Long user_data_id;
+    private Long userDataId;
 
     @NotBlank(message = "You must provide a firs name")
     @Column(name = "first_name")
-    private String first_name;
+    private String firstName;
 
     @NotBlank(message = "You must provide a last name")
     @Column(name="last_name")
-    private String last_name;
+    private String lastName;
 
     @NotNull(message = "You must provide your height")
     @Column(name="height")
@@ -39,7 +39,7 @@ public class UserDataEntity {
 
     @NotNull(message = "You must provide your birth_year")
     @Column(name = "birth_year")
-    private Integer birth_year;
+    private Integer birthYear;
 
     @NotNull(message = "You must provide your gender")
     @Column(name = "sex")
@@ -49,7 +49,7 @@ public class UserDataEntity {
     @NotNull()
     @Column(name = "user_role")
     @Enumerated(EnumType.STRING)
-    private UserRole user_role;
+    private UserRole userRole;
 
 
     @OneToOne
@@ -63,12 +63,12 @@ public class UserDataEntity {
     private List<WorkoutEntity> workoutList=new ArrayList<>();
 
     public UserDataEntity(UserDataCreationDto dto, AppUserEntity appUser) {
-        this.first_name = dto.getFirst_name();
-        this.last_name = dto.getLast_name();
+        this.firstName = dto.getFirst_name();
+        this.lastName = dto.getLast_name();
         this.height = dto.getHeight();
-        this.birth_year = dto.getBirth_year();
+        this.birthYear = dto.getBirth_year();
         this.sex = dto.getSex();
-        this.user_role = dto.getUser_role();
+        this.userRole = dto.getUser_role();
         this.appUser = appUser;
     }
 

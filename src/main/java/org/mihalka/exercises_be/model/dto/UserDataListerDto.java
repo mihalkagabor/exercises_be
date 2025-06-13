@@ -23,13 +23,13 @@ public class UserDataListerDto {
 
 
     public UserDataListerDto(UserDataEntity userData){
-        this.user_data_id=userData.getUser_data_id();
-        this.first_name=userData.getFirst_name();
-        this.last_name=userData.getLast_name();
-        this.birth_year=userData.getBirth_year();
+        this.user_data_id=userData.getUserDataId();
+        this.first_name=userData.getFirstName();
+        this.last_name=userData.getLastName();
+        this.birth_year=userData.getBirthYear();
         this.sex=userData.getSex().toString();
-        this.user_role=userData.getUser_role().toString();
-        this.appUser_id=userData.getAppUser().getUser_id();
+        this.user_role=userData.getUserRole().toString();
+        this.appUser_id=userData.getAppUser().getUserId();
     }
 
 }

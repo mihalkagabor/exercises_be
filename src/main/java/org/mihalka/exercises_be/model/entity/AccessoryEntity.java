@@ -20,18 +20,18 @@ public class AccessoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "accessory_id")
-    private Long accessory_id;
+    private Long accessoryId;
 
     @NotBlank(message = "You must provide an accessory name")
     @Column(name = "accessory_name")
-    private String accessory_name;
+    private String accessoryName;
 
 
     @OneToMany(mappedBy = "accessory")
     private List<ExercisesEntity> exercisesList =new ArrayList<>();
 
     public AccessoryEntity(AccessoryCreationDto dto){
-        this.accessory_name=dto.getAccessory_name();
+        this.accessoryName =dto.getAccessory_name();
     }
 
 }

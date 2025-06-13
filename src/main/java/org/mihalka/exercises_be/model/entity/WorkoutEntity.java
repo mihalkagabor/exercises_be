@@ -19,28 +19,28 @@ public class WorkoutEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="workout_id")
-    private Long workout_id;
+    private Long workoutId;
 
     @NotNull()
     @Column(name = "start_date")
-    private LocalDateTime start_date;
+    private LocalDateTime startDate;
 
 
     @NotNull()
     @Column(name = "end_date")
-    private LocalDateTime end_date;
+    private LocalDateTime endDate;
 
 
     @Column(insertable = false, updatable = false)
-    private Integer workout_duration;
+    private Integer workoutDuration;
 
     @NotNull()
     @Column(name = "exercise_amount")
-    private Integer exercise_amount;
+    private Integer exercisesAmount;
 
     @NotNull()
     @Column(name = "exercise_weight",precision = 5,scale = 1)
-    private BigDecimal exercise_weight;
+    private BigDecimal exercisesWeight;
 
     @ManyToOne
     @JoinColumn(name = "exercises_id")

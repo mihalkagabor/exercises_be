@@ -12,7 +12,7 @@ public class AppUserListerDto {
 
     public AppUserListerDto(AppUserEntity appUser){
         this.name=appUser.getName();
-        this.user_id= appUser.getUser_id();
+        this.user_id= appUser.getUserId();
         this.email= appUser.getEmail();
     }
 

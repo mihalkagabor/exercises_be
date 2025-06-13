@@ -15,9 +15,9 @@ public class UserDataWeightListerDto {
     private LocalDateTime measure_date;
 
     public UserDataWeightListerDto(BodyWeightEntity bodyWeight){
-        this.body_weight_id=bodyWeight.getBody_weight_id();
+        this.body_weight_id=bodyWeight.getBodyWeightId();
         this.weight=bodyWeight.getWeight();
-        this.measure_date=bodyWeight.getMeasure_date();
+        this.measure_date=bodyWeight.getMeasureDate();
     }
 
 }

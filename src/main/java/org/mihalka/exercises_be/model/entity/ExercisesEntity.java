@@ -21,15 +21,15 @@ public class ExercisesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="exercises_id")
-    private Long exercises_id;
+    private Long exercisesId;
 
     @NotBlank(message = "You must provide an exercise name")
     @Column(name = "exercise_name")
-    private String exercise_name;
+    private String exercisesName;
 
     @NotNull(message = "You must provide is this exercise is free weight?")
     @Column(name = "is_free_weight")
-    private Boolean is_free_weight;
+    private Boolean isFreeWeight;
 
     @ManyToOne
     @JoinColumn(name="difficulty_level_id")
@@ -49,7 +49,7 @@ public class ExercisesEntity {
 
 
 public ExercisesEntity(ExercisesCreationDto exercisesCreationDto){
-    this.exercise_name=exercisesCreationDto.getExercise_name();
-    this.is_free_weight=exercisesCreationDto.getIs_free_weight();
+    this.exercisesName =exercisesCreationDto.getExercise_name();
+    this.isFreeWeight =exercisesCreationDto.getIs_free_weight();
 }
 }

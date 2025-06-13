@@ -20,10 +20,10 @@ public class BodyPartEntity {
 
     @NotBlank(message = "You must provide a bodypart name")
     @Column(name = "body_part_name")
-    private String budy_part_name;
+    private String body_part_name;
 
 public BodyPartEntity(BodyPartCreationDto dto){
-    this.budy_part_name=dto.getBody_part_name();
+    this.body_part_name =dto.getBody_part_name();
 }
 
 

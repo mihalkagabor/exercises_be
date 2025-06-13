@@ -35,7 +35,7 @@ public class BodyWeightService {
                     UserDataEntity userData =currentUserService.getCurrentUserData();
 
                     BodyWeightEntity bodyWeight = new BodyWeightEntity(dto);
-                    bodyWeight.setMeasure_date(LocalDateTime.now());
+                    bodyWeight.setMeasureDate(LocalDateTime.now());
                     bodyWeight.setUserData(userData);
                     bodyWeightRepository.save(bodyWeight);
 
@@ -46,7 +46,7 @@ public class BodyWeightService {
         UserDataEntity userData=currentUserService.getCurrentUserData();
 
         return bodyWeightRepository.findAllByUserData(userData).stream()
-                .sorted(Comparator.comparing(BodyWeightEntity::getMeasure_date).reversed())
+                .sorted(Comparator.comparing(BodyWeightEntity::getMeasureDate).reversed())
                 .map(UserDataWeightListerDto::new)
                 .collect(Collectors.toList());
     }

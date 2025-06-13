@@ -20,7 +20,7 @@ public class AppUserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long user_id;
+    private Long userId;
 
     @NotBlank(message = "You must provide a user name")
     @Column(name ="name")
@@ -32,7 +32,7 @@ public class AppUserEntity {
 
     @NotBlank(message = "You must provide a correct password")
     @Column(name="password_hash")
-    private String password_hash;
+    private String passwordHash;
 
     @Column(name="created_at")
     private LocalDateTime created_at;
@@ -47,7 +47,7 @@ private List<RefreshTokenEntity> refreshTokens;
     public AppUserEntity (AppUserCreationDto dto){
         this.name= dto.getName();
         this.email=dto.getEmail();
-        this.password_hash= dto.getPassword_hash();
+        this.passwordHash = dto.getPassword_hash();
         this.setCreated_at(LocalDateTime.now());
     }
 }

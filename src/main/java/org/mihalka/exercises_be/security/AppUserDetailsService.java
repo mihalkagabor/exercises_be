@@ -24,7 +24,7 @@ private final AppUserRepository userRepository;
                     return new UsernameNotFoundException("User not found with identifier: " + identifier);
                 });
 
-        System.out.println("Found user: " + user.getName() + ", password: " + user.getPassword_hash());
+        System.out.println("Found user: " + user.getName() + ", password: " + user.getPasswordHash());
 
         return new AppUserDetails(user);
     }

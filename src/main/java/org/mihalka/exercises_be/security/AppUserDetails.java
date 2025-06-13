@@ -23,7 +23,7 @@ public class AppUserDetails  implements UserDetails {
 
     @Override
 public String getPassword() {
-        return user.getPassword_hash();
+        return user.getPasswordHash();
     }
 
     @Override
@@ -44,8 +44,8 @@ public String getUsername() {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (user.getUserData() != null && user.getUserData().getUser_role() != null) {
-            UserRole role = user.getUserData().getUser_role();
+        if (user.getUserData() != null && user.getUserData().getUserRole() != null) {
+            UserRole role = user.getUserData().getUserRole();
             return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.name()));
         }
         return Collections.emptyList(); // Ha nincs role, nem ad jogosultságot
