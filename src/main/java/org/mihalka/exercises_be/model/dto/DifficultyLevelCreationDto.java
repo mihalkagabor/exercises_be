@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.mihalka.exercises_be.model.entity.DifficultyLevelEntity;
 
 @Getter
 @Setter
@@ -17,5 +18,10 @@ private Integer difficulty_level_level;
 @NotBlank(message = "You must provide a description")
 private String difficulty_level_description;
 
+public DifficultyLevelCreationDto(DifficultyLevelEntity difficultyLevelEntity){
+    this.difficulty_level_level=difficultyLevelEntity.getDifficultyLevelLevel();
+    this.difficulty_level_description=difficultyLevelEntity.getDifficultyLevelDescription();
+
+}
 
 }

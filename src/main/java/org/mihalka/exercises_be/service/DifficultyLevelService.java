@@ -7,6 +7,9 @@ import org.mihalka.exercises_be.repository.DifficultyLevelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.List;
+
 @Service
 @Transactional
 public class DifficultyLevelService {
@@ -23,4 +26,11 @@ public class DifficultyLevelService {
      difficultyLevelRepository.save(difficultyLevel);
     }
 
+    public List<DifficultyLevelCreationDto> listDifficultyLevels() {
+    return difficultyLevelRepository.findAll()
+            .stream()
+            .sorted(Comparator.comparing(DifficultyLevelEntity::getDifficultyLevelLevel).reversed())
+            .map(DifficultyLevelCreationDto::new)
+            .toList();
+    }
 }
