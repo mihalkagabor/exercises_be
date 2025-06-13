@@ -41,7 +41,6 @@ public class BodyWeightService {
 
                 }
 
-    //TODO Végpontot csinálni
     public List<UserDataWeightListerDto> listUserDataWeight(){
         UserDataEntity userData=currentUserService.getCurrentUserData();
 

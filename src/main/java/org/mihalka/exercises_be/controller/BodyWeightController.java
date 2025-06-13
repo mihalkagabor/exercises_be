@@ -3,11 +3,14 @@ package org.mihalka.exercises_be.controller;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.mihalka.exercises_be.model.dto.BodyWeightCreationDto;
+import org.mihalka.exercises_be.model.dto.UserDataWeightListerDto;
 import org.mihalka.exercises_be.service.BodyWeightService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/body_weight")
@@ -22,6 +25,10 @@ public class BodyWeightController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @GetMapping("/lister_bodyWeights")
+    public ResponseEntity<List<UserDataWeightListerDto>> listBodyWeights(){
+        return ResponseEntity.ok(bodyWeightService.listUserDataWeight());
+    }
 
 
 }
