@@ -7,6 +7,9 @@ import org.mihalka.exercises_be.repository.AccessoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.List;
+
 @Transactional
 @Service
 public class AccessoryService {
@@ -22,5 +25,13 @@ public class AccessoryService {
     AccessoryEntity accessory=new AccessoryEntity(accessoryCreationDto);
     accessoryRepository.save(accessory);
 
+    }
+
+    public List<AccessoryCreationDto> accessoryLister(){
+    return  accessoryRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparing(AccessoryEntity::getAccessoryName))
+                .map(AccessoryCreationDto:: new)
+                .toList();
     }
 }
