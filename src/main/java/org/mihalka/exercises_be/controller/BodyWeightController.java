@@ -21,10 +21,7 @@ public class BodyWeightController {
         bodyWeightService.createBodyWeight(dto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    @GetMapping("/test")
-    public String test() {
-        return "API működik";
-    }
+
 
 
 }

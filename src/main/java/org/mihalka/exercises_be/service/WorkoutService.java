@@ -7,6 +7,8 @@ import org.mihalka.exercises_be.model.entity.UserDataEntity;
 import org.mihalka.exercises_be.model.entity.WorkoutEntity;
 import org.mihalka.exercises_be.repository.ExercisesRepository;
 import org.mihalka.exercises_be.repository.WorkoutRepository;
+import org.mihalka.exercises_be.specification.WorkoutSpecification;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -44,62 +46,33 @@ private final CurrentUserService currentUserService;
 
 
 
+//    public List<UserDataWorkoutListerDto> listUserExerciseWorkout(WorkoutFilterDto workoutFilterDto){
+//        UserDataEntity userData=currentUserService.getCurrentUserData();
+//
+//        return workoutRepository.findAllByUserData(userData).stream()
+//                .filter(workout -> workoutFilterDto.getExerciseId() == null
+//                        || workout.getExercises().getExercisesId().equals(workoutFilterDto.getExerciseId()))
+//                .filter(workout -> workoutFilterDto.getBodyPartId() == null
+//                        || (workout.getExercises().getBodyPart() != null
+//                        && workout.getExercises().getBodyPart().getBodyPartId().equals(workoutFilterDto.getBodyPartId())))
+//                .filter(workout-> workoutFilterDto.getWorkoutDay()==null
+//                        || workout.getStartDate().toLocalDate().equals(workoutFilterDto.getWorkoutDay()) )
+//                .sorted(Comparator.comparing(WorkoutEntity::getStartDate).reversed())
+//                .map(UserDataWorkoutListerDto::new)
+//                .collect(Collectors.toList());
+//
+//    }
+
     public List<UserDataWorkoutListerDto> listUserExerciseWorkout(WorkoutFilterDto workoutFilterDto){
         UserDataEntity userData=currentUserService.getCurrentUserData();
 
-        return workoutRepository.findAllByUserData(userData).stream()
-                .filter(workout -> workoutFilterDto.getExerciseId() == null
-                        || workout.getExercises().getExercisesId().equals(workoutFilterDto.getExerciseId()))
-                .filter(workout -> workoutFilterDto.getBodyPartId() == null
-                        || (workout.getExercises().getBodyPart() != null
-                        && workout.getExercises().getBodyPart().getBodyPartId().equals(workoutFilterDto.getBodyPartId())))
-                .filter(workout-> workoutFilterDto.getWorkoutDay()==null
-                        || workout.getStartDate().toLocalDate().equals(workoutFilterDto.getWorkoutDay()) )
+        Specification<WorkoutEntity> filter= WorkoutSpecification.workoutFilter(workoutFilterDto,userData);
+
+        return workoutRepository.findAll(filter)
+                .stream()
                 .sorted(Comparator.comparing(WorkoutEntity::getStartDate).reversed())
                 .map(UserDataWorkoutListerDto::new)
                 .collect(Collectors.toList());
-
     }
 
-
-//    public static Specification<ExercisesEntity> withFilters(ExercisesFilterDto filter) {
-//        return (Root<ExercisesEntity> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
-//            List<Predicate> predicates = new ArrayList<>();
-//
-//            if (filter.getExerciseId() != null) {
-//                predicates.add(cb.equal(root.get("exercises_id"), filter.getExerciseId()));
-//            }
-//
-//            if (filter.getExerciseDifficultyLevel() != null) {
-//                predicates.add(cb.equal(
-//                        root.get("difficultyLevel").get("difficulty_level_level"),
-//                        filter.getExerciseDifficultyLevel()
-//                ));
-//            }
-//
-//            if (filter.getBodyPartId() != null) {
-//                predicates.add(cb.equal(
-//                        root.get("bodyPart").get("body_part_id"),
-//                        filter.getBodyPartId()
-//                ));
-//            }
-//
-//            if (filter.getAccessoryId() != null) {
-//                predicates.add(cb.equal(
-//                        root.get("accessory").get("accessory_id"),
-//                        filter.getAccessoryId()
-//                ));
-//            }
-//
-//            if (filter.getIsFreeWeight() != null) {
-//                predicates.add(cb.equal(
-//                        root.get("is_free_weight"),
-//                        filter.getIsFreeWeight()
-//                ));
-//            }
-//
-//            return cb.and(predicates.toArray(new Predicate[0]));
-//        };
-//    }
-//}
 }
