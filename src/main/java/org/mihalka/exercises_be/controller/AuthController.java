@@ -1,5 +1,7 @@
 package org.mihalka.exercises_be.controller;
 
+import jakarta.validation.Valid;
+import org.mihalka.exercises_be.model.dto.LoginRequest;
 import org.mihalka.exercises_be.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -21,12 +23,8 @@ public class AuthController {
         return ResponseEntity.ok("Hello, " + authentication.getName());
     }
     @PostMapping("/login")
-    public ResponseEntity<Map<String,String>> login(@RequestBody Map<String,String> request){
-        String identifier = request.get("identifier");
-        String password = request.get("password");
-
-        Map<String,String> tokens = authService.authenticate(identifier, password);
-
+    public ResponseEntity<Map<String,String>> login(@RequestBody @Valid LoginRequest loginRequest){
+       Map<String,String> tokens = authService.authenticate(loginRequest.getIdentifier(), loginRequest.getPassword());
         return ResponseEntity.ok(tokens);
     }
 

@@ -32,7 +32,4 @@ public class UserDataCreationDto {
     @NotNull()
     private UserRole user_role;
 
-
-    private BodyWeightEntity bodyWeight;
-
 }

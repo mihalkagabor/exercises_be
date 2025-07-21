@@ -19,7 +19,7 @@ public class AppUserCreationDto {
     private String email;
 
 
-    private String password_hash;
+    private String password;
 
 
 

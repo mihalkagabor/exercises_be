@@ -32,7 +32,7 @@ public class AppUserService {
     // app user létrehozó metódus
     public void appUserCreation(AppUserCreationDto dto){
         List<String> errors =new ArrayList<>();
-        List<String> passwordErrors = validator.PasswordValidate(dto.getPassword_hash());
+        List<String> passwordErrors = validator.PasswordValidate(dto.getPassword());
         if(!passwordErrors.isEmpty()){
             errors.addAll(passwordErrors);
         }

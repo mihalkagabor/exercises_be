@@ -47,7 +47,7 @@ private List<RefreshTokenEntity> refreshTokens;
     public AppUserEntity (AppUserCreationDto dto){
         this.name= dto.getName();
         this.email=dto.getEmail();
-        this.passwordHash = dto.getPassword_hash();
+        this.passwordHash = dto.getPassword();
         this.setCreated_at(LocalDateTime.now());
     }
 }
